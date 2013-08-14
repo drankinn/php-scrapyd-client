@@ -11,8 +11,8 @@
     "license": "MIT",
     "autoload": {
         "psr-0": {
-            "Scrapyd":"src/"
-        }        
+            "Weblabz\\Scrapyd":"src/"
+        }
     },
     "require-dev":{
         "phpunit/phpunit": "3.7",
