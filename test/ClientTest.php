@@ -11,11 +11,12 @@ use Weblabz\Scrapyd\Client;
 class ClientTest extends BaseTest{
 
     private $client;
-    private $scrapydHost='crawl.weblabz.org';
+    private $scrapydHost='localhost';
     private $scrapydHostProtocol='http';
+    private $scrapydHostPort=6800;
     private $project;
     public function setUp(){
-        $this->client = new Client($this->scrapydHost, $this->scrapydHostProtocol);
+        $this->client = new Client($this->scrapydHost, $this->scrapydHostProtocol, $this->scrapydHostPort);
 
         $this->project = array(
             'name'=>'testProject',
@@ -38,7 +39,7 @@ class ClientTest extends BaseTest{
     public function testBuildServiceUrl(){
         $service = 'listprojects.json';
         $url = $this->client->buildServiceUrl($service);
-        $this->assertEquals($this->scrapydHostProtocol.'://'.$this->scrapydHost.'/'.$service, $url);
+        $this->assertEquals($this->scrapydHostProtocol.'://'.$this->scrapydHost.':'.$this->scrapydHostPort.'/'.$service, $url);
 
     }
     public function testSaveProject(){

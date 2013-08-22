@@ -114,12 +114,7 @@ class Client{
         return $this->getJsonResponse();
 
     }
-    public function saveSpider($project, $version, $egg){
 
-    }
-    public function deleteSpider($project, $spider, $version){
-
-    }
     public function scheduleJob($project, $spider,$params){
         try{
             $params['project']=$project;
