@@ -42,6 +42,18 @@ class ClientTest extends BaseTest{
         $this->assertEquals($this->scrapydHostProtocol.'://'.$this->scrapydHost.':'.$this->scrapydHostPort.'/'.$service, $url);
 
     }
+    public function testFlattenParams(){
+        $params = array(
+            'base_case_number'=>13687000,
+            'case_range'=>10,
+            'setting'=>array(
+                'CONCURRENT_REQUESTS'=>1,
+                'ANOTHER_SETTING'=>'booya'
+            )
+        );
+        $result = $this->client->_flattenParams($params);
+        $this->assertEquals("base_case_number=13687000&case_range=10&setting=CONCURRENT_REQUESTS=1&setting=ANOTHER_SETTING=booya", $result);
+    }
     public function testSaveProject(){
         $project = $this->client->saveProject($this->project['name'], $this->project['versions'][0], $this->project['egg']);
         $this->assertEquals('ok', $project['status']);

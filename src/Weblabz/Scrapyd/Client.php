@@ -119,7 +119,7 @@ class Client{
         try{
             $params['project']=$project;
             $params['spider']=$spider;
-            $this->http_client->post($this->buildServiceUrl('schedule.json'), $params);
+            $this->http_client->post($this->buildServiceUrl('schedule.json'), $this->_flattenParams($params));
         }catch(Net_Http_Exception $e){
             return $this->getErrorResponse($e);
         }
@@ -176,6 +176,20 @@ class Client{
         }
         return $this->getJsonResponse();
 
+    }
+
+    public function _flattenParams($params){
+        $p = array();
+        foreach($params as $key=>$param){
+            if(is_array($param)){
+                    foreach($param as $k=>$v){
+                        array_push($p, $key.'='.$k.'='.$v);
+                    }
+            }else{
+                array_push($p,$key.'='.$param);
+            }
+        }
+        return implode('&', $p);
     }
 
 }
