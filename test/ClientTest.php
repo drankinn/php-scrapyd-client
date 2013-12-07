@@ -21,16 +21,18 @@ class ClientTest extends BaseTest{
         $this->project = array(
             'name'=>'testProject',
             'versions'=> array('test1', 'test2'),
-            'egg'=> __DIR__.'/project-1.0-py2.7.egg',
+            'egg'=> __DIR__.'/probate_spiders-1.1-py2.7.egg',
             'spiders' => array(
                 'alameda'=>array(
                     'base_case_number'=>13687000,
                     'case_range'=>10,
+                    '_job'=>uniqid()
                 ),
                 'lacounty'=>array(
                     'base_case_number'=>143290,
                     'case_range'=>10,
-                    'setting'=>'CONCURRENT_REQUESTS=1'
+                    'setting'=>'CONCURRENT_REQUESTS=1',
+                    '_job'=>uniqid()
                 )
             ),
             'jobs'=> array()
@@ -100,6 +102,10 @@ class ClientTest extends BaseTest{
         foreach($this->project['jobs'] as $jobid){
             $this->assertContains($jobid, $jobIDs);
         }
+    }
+    public function testGetJobLog(){
+        $log = $this->client->getJobLog($this->project['name'], 'alameda', $this->project['spiders']['alameda']['_job']);
+        $this->assertEquals('ok', 'ok');
     }
     public function testCancelProjectJob(){
         $jobs = $this->client->getJobs($this->project['name']);

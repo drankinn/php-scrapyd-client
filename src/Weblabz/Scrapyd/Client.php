@@ -137,6 +137,14 @@ class Client{
         return $this->getJsonResponse();
 
     }
+    public function getJobLog($project, $spider, $job){
+        try{
+            $this->http_client->get($this->buildServiceUrl('logs/'.$project.'/'.$spider.'/'.$job.'.log'));
+        }catch(Net_Http_Exception $e){
+            return $this->getErrorResponse($e);
+        }
+        return $this->http_client->getBody();
+    }
     public function cancelJob($project, $job){
         try{
             $data = array(
