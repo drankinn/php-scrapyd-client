@@ -39,8 +39,8 @@ class LogParser {
         $stats = str_replace(")", ")\"", $stats);
         $stats = str_replace("'", "\"", $stats);
         $stats = json_decode($stats);
-        $stats->finish_time = split(',', str_replace(")", "", str_replace("datetime.datetime(", "", $stats->finish_time)));
-        $stats->start_time = split(',', str_replace(")", "", str_replace("datetime.datetime(", "", $stats->start_time)));
+        $stats->finish_time = explode(',', str_replace(")", "", str_replace("datetime.datetime(", "", $stats->finish_time)));
+        $stats->start_time = explode(',', str_replace(")", "", str_replace("datetime.datetime(", "", $stats->start_time)));
         return $stats;
     }
 
