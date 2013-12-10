@@ -33,6 +33,13 @@ class LogParserTest extends BaseTest {
         $this->assertEquals($stats, json_decode($this->stats_json));
     }
 
+    public function testGetStatsDates(){
+        $stats = json_decode($this->stats_json);
+        $start_date = $this->log_parser->getStatsDate($stats->start_time);
+        $this->assertEquals($start_date->format('Y-m-d H:i:s'), '2013-12-06 23:31:48');
+    }
+
+
     private $stats = <<<EOT
 {'downloader/request_bytes': 3380,
 	 'downloader/request_count': 10,

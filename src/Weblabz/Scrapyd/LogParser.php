@@ -15,6 +15,16 @@ class LogParser {
     private $error_regex = "/^\d{4}-\d{2}-\d{2}((?!ERROR).)*ERROR:((?!\d{4}-\d{2}-\d{2})[\s\S])*/m";
     //match the stats json string at the end of the log
     private $stats_regex = "/(?<=Dumping Scrapy stats:\n\s)\{[^}]*\}/m";
+
+    private $date_index = [
+        'year'=>0,
+        'month'=>1,
+        'day'=>2,
+        'hour'=>3,
+        'minute'=>4,
+        'second'=>5
+    ];
+
     public function extractErrors($log){
         preg_match_all($this->error_regex, $log, $errors);
         if(is_array($errors) && is_array($errors[0])){
@@ -44,6 +54,15 @@ class LogParser {
             $stats->start_time = explode(',', str_replace(")", "", str_replace("datetime.datetime(", "", $stats->start_time)));
         }
         return $stats;
+    }
+
+    public function getStatsDate($date_array){
+        $date_string = $date_array[$this->date_index['year']] . '-' . $date_array[$this->date_index['month']] . '-'
+            . $date_array[$this->date_index['day']] . ' ' . $date_array[$this->date_index['hour']] . ":"
+            . $date_array[$this->date_index['minute']] . ':' . $date_array[$this->date_index['second']];
+
+        $start_date = new \DateTime($date_string, new \DateTimeZone("UTC"));
+        return $start_date;
     }
 
 } 
