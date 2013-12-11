@@ -34,9 +34,8 @@ class LogParserTest extends BaseTest {
     }
 
     public function testGetStatsDates(){
-        $stats = json_decode($this->stats_json);
-        $start_date = $this->log_parser->getStatsDate($stats->start_time);
-        $this->assertEquals($start_date->format('Y-m-d H:i:s'), '2013-12-06 23:31:48');
+        $start_date = $this->log_parser->getStatsDate([2013, 12, 6, 23, 31, 48]);
+        $this->assertEquals($start_date, '2013-12-06 23:31:48');
     }
 
 
@@ -69,7 +68,7 @@ EOT;
 	 "downloader/response_count": 10,
 	 "downloader/response_status_count/200": 10,
 	 "finish_reason": "finished",
-	 "finish_time": [2013, 12, 6, 23, 31, 49, 119298],
+	 "finish_time": "2013-12-06 23:31:49",
 	 "log_count/DEBUG": 16,
 	 "log_count/ERROR": 7,
 	 "log_count/INFO": 3,
@@ -79,7 +78,7 @@ EOT;
 	 "scheduler/enqueued": 10,
 	 "scheduler/enqueued/memory": 10,
 	 "spider_exceptions/IndexError": 7,
-	 "start_time": [2013, 12, 6, 23, 31, 48, 866452]}
+	 "start_time": "2013-12-06 23:31:48"}
 EOT;
 
     private $log = <<<EOT

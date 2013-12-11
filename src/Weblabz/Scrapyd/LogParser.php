@@ -24,6 +24,7 @@ class LogParser {
         'minute'=>4,
         'second'=>5
     ];
+    private $date_format = "Y-m-d H:i:s";
 
     public function extractErrors($log){
         preg_match_all($this->error_regex, $log, $errors);
@@ -50,8 +51,8 @@ class LogParser {
             $stats = str_replace(")", ")\"", $stats);
             $stats = str_replace("'", "\"", $stats);
             $stats = json_decode($stats);
-            $stats->finish_time = explode(',', str_replace(")", "", str_replace("datetime.datetime(", "", $stats->finish_time)));
-            $stats->start_time = explode(',', str_replace(")", "", str_replace("datetime.datetime(", "", $stats->start_time)));
+            $stats->finish_time = $this->getStatsDate(explode(',', str_replace(")", "", str_replace("datetime.datetime(", "", $stats->finish_time))));
+            $stats->start_time = $this->getStatsDate(explode(',', str_replace(")", "", str_replace("datetime.datetime(", "", $stats->start_time))));
         }
         return $stats;
     }
@@ -60,9 +61,9 @@ class LogParser {
         $date_string = $date_array[$this->date_index['year']] . '-' . $date_array[$this->date_index['month']] . '-'
             . $date_array[$this->date_index['day']] . ' ' . $date_array[$this->date_index['hour']] . ":"
             . $date_array[$this->date_index['minute']] . ':' . $date_array[$this->date_index['second']];
-
+        $date_string = str_replace(" ", "", $date_string);
         $start_date = new \DateTime($date_string, new \DateTimeZone("UTC"));
-        return $start_date;
+        return $start_date->format($this->date_format);
     }
 
 } 
