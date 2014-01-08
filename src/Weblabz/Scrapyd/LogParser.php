@@ -37,7 +37,7 @@ class LogParser {
 
     public function extractStats($log){
         preg_match($this->stats_regex, $log, $stats);
-        if(is_array($stats)){
+        if(is_array($stats) && sizeof($stats)>0){
             return $stats[0];
         }else{
             return "";
@@ -46,7 +46,7 @@ class LogParser {
 
     public function extractStatsJson($log){
         $stats = $this->extractStats($log);
-        if(isset($stats)){
+        if(isset($stats) && "" != $stats){
             $stats = str_replace(": date", ": \"date", $stats);
             $stats = str_replace(")", ")\"", $stats);
             $stats = str_replace("'", "\"", $stats);
