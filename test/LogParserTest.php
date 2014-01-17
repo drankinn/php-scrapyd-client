@@ -298,10 +298,10 @@ EOT;
 	 'scheduler/enqueued/memory': 10,
 	 'spider_exceptions/IndexError': 7,
 	 'start_time': datetime.datetime(2013, 12, 6, 23, 31, 48, 866452)}
-2013-12-06 16:31:49-0700 [alameda] INFO: Spider closed (finished)";
+2013-12-06 16:31:49-0700 [alameda] INFO: Spider closed (finished)"
 EOT;
 
-    private log2 = <<< EOT
+    private $log2 = <<<EOT
 2013-12-19 13:23:29-0700 [scrapy] INFO: Scrapy 0.20.1 started (bot: probatecollector)
 2013-12-19 13:23:29-0700 [scrapy] DEBUG: Optional features available: ssl, http11
 2013-12-19 13:23:29-0700 [scrapy] DEBUG: Overridden settings: {'NEWSPIDER_MODULE': 'probatecollector.spiders', 'FEED_URI': 'file://items/probatecollector/alameda/52b355bff1331.jl', 'DUPEFILTER_CLASS': 'scrapy.dupefilter.BaseDupeFilter', 'SPIDER_MODULES': ['probatecollector.spiders'], 'BOT_NAME': 'probatecollector', 'LOG_FILE': 'logs/probatecollector/alameda/52b355bff1331.log'}
