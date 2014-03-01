@@ -58,12 +58,17 @@ class LogParser {
     }
 
     public function getStatsDate($date_array){
-        $date_string = $date_array[$this->date_index['year']] . '-' . $date_array[$this->date_index['month']] . '-'
-            . $date_array[$this->date_index['day']] . ' ' . $date_array[$this->date_index['hour']] . ":"
-            . $date_array[$this->date_index['minute']] . ':' . $date_array[$this->date_index['second']];
-        $date_string = str_replace(" ", "", $date_string);
-        $start_date = new \DateTime($date_string, new \DateTimeZone("UTC"));
-        return $start_date->format($this->date_format);
+        try{
+            $date_string = $date_array[$this->date_index['year']] . '-' . $date_array[$this->date_index['month']] . '-'
+                . str_pad(trim($date_array[$this->date_index['day']]),2, "0", STR_PAD_LEFT) . ' ' . str_pad(trim($date_array[$this->date_index['hour']]),2,"0", STR_PAD_LEFT) . ":"
+                . str_pad(trim($date_array[$this->date_index['minute']]),2, "0", STR_PAD_LEFT) . ':' . str_pad(trim($date_array[$this->date_index['second']]),2, "0", STR_PAD_LEFT);
+            $date_string = str_replace(" ", "", $date_string);
+            $start_date = new \DateTime($date_string, new \DateTimeZone("UTC"));
+            return $start_date->format($this->date_format);
+        }catch(\Exception $e){
+            \Log::error($e);
+            return "";
+        }
     }
 
 } 
